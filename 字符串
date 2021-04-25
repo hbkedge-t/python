@@ -1,0 +1,446 @@
+# 目標
+
+- 認識字符串
+- 下標
+- 切片
+- 常用操作方法
+
+# 一. 認識字符串
+
+字符串是 Python 中最常用的數據類型。我們一般使用引號來創建字符串。創建字符串很簡單，只要為變量分配一個值即可。
+
+``` python
+a = 'hello BCH'
+b = "abcd1234"
+print(type(a))
+print(type(b))
+```
+
+***顯示結果為`<class 'str'>`， 即數據類型為str(字符串)。
+
+## 1.1 字符串特徵
+
+- 一對引號字符串
+
+``` python
+name1 = 'Tom'
+name2 = "Rose"
+```
+
+
+
+- 三引號字符串
+
+``` python
+name3 = ''' Tom '''
+name4 = """ Rose """
+a = ''' i am Tom,
+        nice to meet you! '''
+
+b = """ i am Rose,
+        nice to meet you! """
+```
+
+ 注意：三引號形式的字符串支持換行。
+
+
+```
+
+## 1.2 字符串輸出
+
+``` python
+print('hello BCH')
+
+name = '喬姐'
+print('我的名字是%s' % name)
+print(f'我的名字是{name}')
+```
+
+
+
+## 1.3 字符串輸入
+
+在Python中，使用`input()`接收用戶輸入。
+
+- 代碼
+
+``` python
+name = input('請輸入您的名字：')
+print(f'您輸入的名字是{name}')
+print(type(name))
+
+password = input('請輸入您的密碼：')
+print(f'您輸入的密碼是{password}')
+print(type(password))
+```
+
+
+
+
+
+# 二、下標 index
+
+`“下標”`又叫`“索引”`，就是編號。比如火車座位號，座位號的作用：按照編號快速找到對應的座位。同理，下標的作用即是通過下標快速找到對應的數據。
+
+
+
+## 2.1 快速體驗
+
+需求：字符串`name = "Newbitcoin"`，取到不同下標對應的數據。
+
+- 代碼
+
+``` python
+name = "Newbitcoin"
+
+print(name[1])
+print(name[0])
+print(name[2])
+```
+
+
+#注意：下標從==0==開始。
+
+
+
+# 三、切片
+
+切片是指對操作的對象截取其中一部分的操作。 **字符串、列表、元組**都支持切片操作。---重要
+
+## 3.1 語法
+
+``` python
+序列[開始位置下標:結束位置下標:步長]------------超重要
+```
+
+ 1. 不包含結束位置下標對應的數據， 正負整數均可；
+ 2. 步長是選取間隔，正負整數均可，默認步長為1。
+
+## 3.2 體驗
+
+``` python
+name = "abcdefg"
+
+print(name[2:5:1]) # cde
+print(name[2:5]) # cde
+print(name[:5]) # abcde
+print(name[1:]) # bcdefg
+print(name[:]) # abcdefg
+print(name[::2]) # aceg
+print(name[:-1]) # abcdef, 負1表示倒數第一個數據
+print(name[-4:-1]) # def
+print(name[::-1]) # gfedcba
+```
+
+
+
+# 四、常用操作方法
+
+字符串的常用操作方法有查找、修改和判斷三大類。
+
+## 4.1 查找
+
+所謂字符串查找方法即是查找子串在字符串中的位置或出現的次數。
+
+- find()：檢測某個子串是否包含在這個字符串中，如果在返回這個子串開始的位置下標，否則則返回-1。
+
+1. 語法
+
+``` python
+字符串序列.find(子串, 開始位置下標, 結束位置下標)
+```
+
+> 注意：開始和結束位置下標可以省略，表示在整個字符串序列中查找。
+
+2. 快速體驗
+
+``` python
+mystr = "hello world and BCH"
+
+print(mystr.find('and')) # 12
+
+``'
+
+- index()：檢測某個子串是否包含在這個字符串中，如果在返回這個子串開始的位置下標，否則則報異常。
+
+1. 語法
+
+``` python
+字符串序列.index(子串, 開始位置下標, 結束位置下標)
+```
+
+> 注意：開始和結束位置下標可以省略，表示在整個字符串序列中查找。
+
+2. 快速體驗
+
+``` python
+mystr = "hello world and BCH"
+
+print(mystr.index('and')) # 12
+print(mystr.index('ands')) # 報錯
+```
+
+- rfind()： 和find()功能相同，但查找方向為==右側==開始。
+- rindex()：和index()功能相同，但查找方向為==右側==開始。
+- count()：返回某個子串在字符串中出現的次數
+
+1. 語法
+
+``` python
+字符串序列.count(子串, 開始位置下標, 結束位置下標)
+```
+
+> 注意：開始和結束位置下標可以省略，表示在整個字符串序列中查找。
+
+2. 快速體驗
+
+``` python
+mystr = "hello world and BCH and kyrl0128 and Python"
+
+print(mystr.count('and')) # 3
+
+```
+
+
+
+## 4.2 修改
+
+所謂修改字符串，指的就是通過函數的形式修改字符串中的數據。
+
+- replace()：替換
+
+1. 語法
+
+``` python
+字符串序列.replace(舊子串, 新子串, 替換次數)
+```
+
+> 注意：替換次數如果查出子串出現次數，則替換次數為該子串出現次數。
+
+2. 快速體驗
+
+``` python
+mystr = "hello world and CC and AA and Python"
+print(mystr.replace('and', 'he'))
+# 結果：hello world he CC he AA he Python
+
+```
+
+> 注意：數據按照是否能直接修改分為==可變類型==和==不可變類型==兩種。字符串類型的數據修改的時候不能改變原有字符串，屬於不能直接修改數據的類型即是不可變類型。
+
+
+
+- split()：按照指定字符分割字符串。
+
+1. 語法
+
+``` python
+字符串序列.split(分割字符, num)
+```
+
+> 注意：num表示的是分割字符出現的次數，即將來返回數據個數為num+1個。
+
+2. 快速體驗
+
+``` python
+mystr = "hello world and DD and EE and Python"
+print(mystr.split('and'))
+# 結果：['hello world ', ' DD ', ' EE ', ' Python']
+
+```
+
+> 注意：如果分割字符是原有字符串中的子串，分割後則丟失該子串。
+
+- join()：用一個字符或子串合併字符串，即是將多個字符串合併為一個新的字符串。
+
+1. 語法
+
+``` python
+字符或子串.join(多字符串組成的序列)
+```
+
+2. 快速體驗
+
+``` python
+list1 = ['AA', 'BB', 'CC', 'DD']
+
+
+print('_'.join(list1))
+#AA_BB_CC_DD
+```
+
+****以下皆為 字串變量.函數 自行測試看看
+
+- capitalize()：將字符串第一個字符轉換成大寫。
+
+
+```
+
+> 注意：capitalize()函數轉換後，隻字符串第一個字符大寫，其他的字符全都小寫。
+
+
+
+- title()：將字符串每個單詞首字母轉換成大寫。
+
+- lower()：將字符串中大寫轉小寫。
+
+
+
+
+- upper()：將字符串中小寫轉大寫。
+
+
+
+
+
+- lstrip()：刪除字符串左側空白字符。
+
+
+
+
+
+- rstrip()：刪除字符串右側空白字符。
+
+
+
+
+
+- strip()：刪除字符串兩側空白字符。
+
+
+- ljust()：返回一個原字符串左對齊,並使用指定字符(默認空格)填充至對應長度 的新字符串。
+ 語法
+
+``` python
+字符串序列.ljust(長度, 填充字符)
+```
+
+- rjust()：返回一個原字符串右對齊,並使用指定字符(默認空格)填充至對應長度 的新字符串，語法和ljust()相同。
+- center()：返回一個原字符串居中對齊,並使用指定字符(默認空格)填充至對應長度 的新字符串，語法和ljust()相同。
+
+
+
+
+
+## 4.3 判斷
+
+所謂判斷即是判斷真假，返回的結果是布爾型數據類型：True 或 False。
+
+- startswith()：檢查字符串是否是以指定子串開頭，是則返回 True，否則返回 False。如果設置開始和結束位置下標，則在指定範圍內檢查。
+
+1. 語法
+
+``` python
+字符串序列.startswith(子串, 開始位置下標, 結束位置下標)
+```
+
+2. 快速體驗
+
+``` python
+mystr = "hello world and AA and BB and CC "
+
+# 結果：True
+print(mystr.startswith('hello'))
+
+
+```
+
+
+
+- endswith()：：檢查字符串是否是以指定子串結尾，是則返回 True，否則返回 False。如果設置開始和結束位置下標，則在指定範圍內檢查。
+
+1. 語法
+
+``` python
+字符串序列.endswith(子串, 開始位置下標, 結束位置下標)
+```
+
+2. 快速體驗
+
+``` python
+mystr = "hello world and AA and CC and Python"
+
+# 結果：True
+print(mystr.endswith('Python'))
+
+
+```
+
+
+
+- isalpha()：如果字符串至少有一個字符並且所有字符都是字母則返回 True, 否則返回 False。
+
+``` python
+mystr1 = 'hello'
+mystr2 = 'hello15566'
+
+# 結果：True
+print(mystr1.isalpha())
+
+# 結果：False
+print(mystr2.isalpha())
+```
+
+
+
+- isdigit()：如果字符串只包含數字則返回 True 否則返回 False。
+
+``` python
+mystr1 = 'aaa12345'
+mystr2 = '12345'
+
+# 結果： False
+print(mystr1.isdigit())
+
+# 結果：False
+print(mystr2.isdigit())
+```
+
+
+
+- isalnum()：如果字符串至少有一個字符並且所有字符都是字母或數字則返 回 True,否則返回 False。
+
+``` python
+mystr1 = 'aaa12345'
+mystr2 = '12345-'
+
+# 結果：True
+print(mystr1.isalnum())
+
+# 結果：False
+print(mystr2.isalnum())
+```
+
+
+
+- isspace()：如果字符串中只包含空白，則返回 True，否則返回 False。
+
+``` python
+mystr1 = '1 2 3 4 5'
+mystr2 = ' '
+
+# 結果：False
+print(mystr1.isspace())
+
+# 結果：True
+print(mystr2.isspace())
+```
+
+
+
+# 五. 總結
+
+- 下標(索引)
+  - 計算機為數據序列中每個元素分配的從0開始的編號
+- 切片
+  注意取值範圍
+``` python
+序列名[開始位置下標:結束位置下標:步長]
+```
+
+- 常用操作方法
+  - find()
+  - index() 
+  
+  
+  
