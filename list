@@ -1,0 +1,453 @@
+# 課程：列表 List
+
+# 目標
+
+- 列表的應用場景
+- 列表的格式
+- 列表的常用操作
+- 列表的循環遍歷
+- 列表的嵌套使用
+
+# 一. 列表的應用場景
+
+思考：有一個人的姓名(john)怎麼書寫存儲程序？
+
+答：變量。
+
+思考：如果一個班級100位學生，每個人的姓名都要存儲，應該如何書寫程序？聲明100個變量嗎？類似 ARRAY概念
+
+答：列表即可， 列表一次性可以存儲多個數據。
+
+# 二. 列表的格式
+
+``` python
+[數據1, 數據2, 數據3, 數據4......]
+```
+
+列表可以一次性存儲多個數據，且可以為不同數據類型。
+
+# 三. 列表的常用操作
+
+列表的作用是一次性存儲多個數據，程序員可以對這些數據進行的操作有：增、刪、改、查。
+
+## 3.1 查找
+
+### 3.1.1 下標
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+print(name_list[0]) # john
+print(name_list[1]) # amy
+print(name_list[2]) # Newbitcoin
+```
+
+### 3.1.2 函數
+
+- index()：返回指定數據所在位置的下標 。
+
+1. 語法
+
+``` python
+列表序列.index(數據, 開始位置下標, 結束位置下標)
+```
+
+2. 快速體驗
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+print(name_list.index('amy', 0, 2)) # 1
+```
+
+> 注意：如果查找的數據不存在則報錯。
+
+- count()：統計指定數據在當前列表中出現的次數。
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+print(name_list.count('amy')) # 1
+```
+
+- len()：訪問列表長度，即列表中數據的個數。
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+print(len(name_list)) # 3
+```
+
+
+
+### 3.1.3 判斷是否存在
+
+- in：判斷指定數據在某個列表序列，如果在返回True，否則返回False
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+# 結果：True
+print('amy' in name_list)
+
+# 結果：False
+print('amys' in name_list)
+```
+
+
+
+- not in：判斷指定數據不在某個列表序列，如果不在返回True，否則返回False
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+# 結果：False
+print('amy' not in name_list)
+
+# 結果：True
+print('amys' not in name_list)
+```
+
+- 體驗案例
+
+需求：查找用戶輸入的名字是否已經存在。
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name = input('請輸入您要搜索的名字：')
+
+if name in name_list:
+    print(f'您輸入的名字是{name}, 名字已經存在')
+else:
+    print(f'您輸入的名字是{name}, 名字不存在')
+```
+
+
+
+## 3.2 增加
+
+作用：增加指定數據到列表中。
+
+- append()：列表結尾追加數據。
+
+1. 語法
+
+``` python
+列表序列.append(數據)
+```
+
+2. 體驗
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name_list.append('hbk')
+
+# 結果：['john', 'amy', 'Newbitcoin', 'hbk']
+print(name_list)
+```
+
+> 列表追加數據的時候，直接在原列表裡面追加了指定數據，即修改了原列表，故列表為可變類型數據。
+
+3. 注意點
+
+如果append()追加的數據是一個序列，則追加整個序列到列表
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name_list.append(['hbk', 'hhh'])
+
+# 結果：['john', 'amy', 'Newbitcoin', ['hbk', 'hhh']]
+print(name_list)
+```
+
+
+
+- extend()：列表結尾追加數據，如果數據是一個序列，則將這個序列的數據逐一添加到列表。
+
+1. 語法
+
+```python
+列表序列.extend(數據)
+```
+
+2. 快速體驗
+
+   2.1 單個數據
+
+```python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name_list.extend('hbk')
+
+# 結果：['john', 'amy', 'Newbitcoin', 'x', 'i', 'a', 'o', 'm', 'i', 'n', 'g']
+print(name_list)
+```
+
+​ 2.2 序列數據
+
+```python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name_list.extend(['hbk', 'hhh'])
+
+# 結果：['john', 'amy', 'Newbitcoin', 'hbk', 'hhh']
+print(name_list)
+```
+
+
+
+- insert()：指定位置新增數據。
+
+1. 語法
+
+``` python
+列表序列.insert(位置下標, 數據)
+```
+
+2. 快速體驗
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name_list.insert(1, 'hbk')
+
+# 結果：['john', 'hbk', 'amy', 'Newbitcoin']
+print(name_list)
+```
+
+
+
+## 3.3 刪除
+
+- del
+
+1. 語法
+
+``` python
+del 目標
+```
+
+2. 快速體驗
+
+   2.1 刪除列表
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+# 結果：報錯提示：name 'name_list' is not defined
+del name_list
+print(name_list)
+```
+
+​ 2.2 刪除指定數據
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+del name_list[0]
+
+# 結果：['amy', 'Newbitcoin']
+print(name_list)
+```
+
+
+
+- pop()：刪除指定下標的數據(默認為最後一個)，並返回該數據。
+
+1. 語法
+
+``` python
+列表序列.pop(下標)
+```
+
+2. 快速體驗
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+del_name = name_list.pop(1)
+
+# 結果：amy
+print(del_name)
+
+# 結果：['john', 'Newbitcoin']
+print(name_list)
+```
+
+
+
+- remove()：移除列表中某個數據的第一個匹配項。
+
+1. 語法
+
+``` python
+列表序列.remove(數據)
+```
+
+2. 快速體驗
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name_list.remove('Newbitcoin')
+
+# 結果：['john', 'amy']
+print(name_list)
+```
+
+
+
+- clear()：清空列表
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name_list.clear()
+print(name_list) # 結果： []
+```
+
+
+
+## 3.4 修改
+
+- 修改指定下標數據
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name_list[0] = 'aaa'
+
+# 結果：['aaa', 'amy', 'Newbitcoin']
+print(name_list)
+```
+
+
+
+- 逆置：reverse()
+
+``` python
+num_list = [1, 5, 2, 3, 6, 8]
+
+num_list.reverse()
+
+# 結果：[8, 6, 3, 2, 5, 1]
+print(num_list)
+```
+
+
+
+- 排序：sort()
+
+1. 語法
+
+``` python
+列表序列.sort( key=None, reverse=False)
+```
+
+> 注意：reverse表示排序規則，**reverse = True** 降序， **reverse = False** 升序（默認）
+
+2. 快速體驗
+
+``` python
+num_list = [1, 5, 2, 3, 6, 8]
+
+num_list.sort()
+
+# 結果：[1, 2, 3, 5, 6, 8]
+print(num_list)
+```
+
+
+
+## 3.5 複製
+
+函數：copy()
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+name_li2 = name_list.copy()
+
+# 結果：['john', 'amy', 'Newbitcoin']
+print(name_li2)
+```
+
+
+
+# 四. 列表的循環遍歷
+
+需求：依次打印列表中的各個數據。
+
+## 4.1 while
+
+- 代碼
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+i = 0
+while i < len(name_list):
+    print(name_list[i])
+    i += 1
+```
+
+
+
+
+## 4.2 for
+
+- 代碼
+
+``` python
+name_list = ['john', 'amy', 'Newbitcoin']
+
+for i in name_list:
+    print(i)
+```
+
+
+
+
+# 五. 列表嵌套
+
+所謂列表嵌套指的就是一個列表裡麵包含了其他的子列表。
+
+應用場景：要存儲班級一、二、三三個班級學生姓名，且每個班級的學生姓名在一個列表。
+
+``` python
+name_list = [['小明', '小紅', '小綠'], ['john', 'amy', 'Newbitcoin'], ['張三', '李四', '王五']]
+```
+
+> 思考： 如何查找到數據"李四"？
+
+``` python
+# 第一步：按下標查找到李四所在的列表
+print(name_list[2])
+
+# 第二步：從李四所在的列表裡面，再按下標找到數據李四
+print(name_list[2][1])
+```
+
+
+
+# 總結
+
+- 列表的格式 [..........]
+
+``` python
+[數據1, 數據2, 數據3]
+```
+
+- 常用操作方法
+  - index()
+  - len()
+  - append()
+  - pop()
+  - remove()
+
+
+
+
