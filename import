@@ -1,0 +1,322 @@
+# 課程：模塊(組)和包(package)
+
+# 目標
+
+- 了解模塊
+- 導入模塊
+- 製作模塊
+- `__all__`
+- 包的使用方法
+
+
+
+# 一. 模塊(組)
+
+Python 模塊(Module)，是一個 Python 文件，以 .py 結尾，包含了 Python 對象定義和Python語句。
+
+模塊能定義函數，類和變量，模塊裡也能包含可執行的代碼。
+
+## 1.1. 導入模塊
+
+### 1.1.1 導入模塊的方式*********重要*********
+
+- import 模塊名
+- from 模塊名 import 功能名
+- from 模塊名 import *
+- import 模塊名 as 別名
+- from 模塊名 import 功能名 as 別名
+
+### 1.1.2 導入方式詳解
+
+#### 1.1.2.1 import
+
+- 語法
+
+``` python
+# 1. 導入模塊
+import 模塊名
+import 模塊名1, 模塊名2...
+
+# 2. 調用功能
+模塊名.功能名()
+```
+
+- 體驗
+
+``` python
+import math
+print(math.sqrt(16)) # 4.0
+```
+
+#### 1.1.2.2 from..import..
+
+- 語法
+
+``` python
+from 模塊名 import 功能1, 功能2, 功能3...
+```
+
+- 體驗
+
+``` python
+from math import sqrt
+print(sqrt(16))
+```
+
+
+
+#### 1.1.2.3 from .. import *
+
+- 語法
+
+``` python
+from 模塊名 import *
+```
+
+- 體驗
+
+``` python
+from math import *
+print(sqrt(16))
+```
+
+#### 1.1.2.4 as定義別名
+
+- 語法
+
+``` python
+# 模塊定義別名
+import 模塊名 as 別名
+
+# 功能定義別名
+from 模塊名 import 功能 as 別名
+```
+
+- 體驗
+
+``` python
+# 模塊別名
+import time as tt
+
+tt.sleep(10)
+print('hello')
+
+# 功能別名
+from time import sleep as sl
+sl(20)
+print('hello')
+```
+
+
+
+## 1.2. 製作模塊
+
+在Python中，每個Python文件都可以作為一個模塊，模塊的名字就是文件的名字。 **也就是說自定義模塊名必須要符合標識符命名規則。 **
+
+### 1.2.1 定義模塊
+
+新建一個Python文件，命名為`my_module1.py`，並定義`testA`函數。
+
+``` python
+def testA(a, b):
+    print(a + b)
+```
+
+
+
+### 1.2.2 測試模塊
+
+在實際開中，當開發人員編寫完一個模塊後，為了讓模塊能夠在項目中達到想要的效果，開發人員會自行在py文件中添加一些測試信息.，例如，在`my_module1.py `文件中添加測試代碼。
+
+``` python
+def testA(a, b):
+    print(a + b)
+
+
+testA(1, 1)
+```
+
+此時，無論是當前文件，還是其他已經導入了該模塊的文件，在運行的時候都會自動執行`testA`函數的調用。
+
+解決辦法如下：
+
+``` python
+def testA(a, b):
+    print(a + b)
+
+# 只在當前文件中調用該函數，其他導入的文件內不符合該條件，則不執行testA函數調用---重要.....
+
+if __name__ == '__main__':
+    testA(1, 1)
+```
+
+
+
+### 1.2.3 調用模塊
+
+```python
+import my_module1
+my_module1.testA(1, 1)
+```
+
+
+
+### 1.2.4 注意事項
+
+如果使用`from .. import ..`或`from .. import *`導入多個模塊的時候，且模塊內有同名功能。當調用這個同名功能的時候，調用到的是後面導入的模塊的功能。
+
+- 體驗
+
+``` python
+# 模塊1代碼
+def my_test(a, b):
+    print(a + b)
+
+# 模塊2代碼
+def my_test(a, b):
+    print(a - b)
+   
+# 導入模塊和調用功能代碼
+from my_module1 import my_test
+from my_module2 import my_test
+
+# my_test函數是模塊2中的函數
+my_test(1, 1)
+```
+
+
+
+## 1.3. 模塊定位順序
+
+當導入一個模塊，Python解析器對模塊位置的搜索順序是：
+
+1. 當前目錄
+2. 如果不在當前目錄，Python則搜索在shell變量PYTHONPATH下的每個目錄。
+3. 如果都找不到，Python會察看默認路徑。 UNIX下，默認路徑一般為/usr/local/lib/python/
+
+模塊搜索路徑存儲在system模塊的sys.path變量中。變量裡包含當前目錄，PYTHONPATH和由安裝過程決定的默認目錄。
+
+- 注意
+  - 自己的文件名不要和已有模塊名重複，否則導致模塊功能無法使用
+  - `使用from 模塊名 import 功能`的時候，如果功能名字重複，調用到的是最後定義或導入的功能。
+
+
+
+## 1.4. `__all__`
+
+如果一個模塊文件中有`__all__`變量，當使用`from xxx import *`導入時，只能導入這個列表中的元素。
+
+- my_module1模塊代碼
+
+``` python
+__all__ = ['testA']
+
+
+def testA():
+    print('testA')
+
+
+def testB():
+    print('testB')
+```
+
+- 導入模塊的文件代碼
+
+``` python
+from my_module1 import *
+testA()
+testB()
+```
+
+
+
+
+
+# 二. 包
+
+包將有關連的模塊組織在一起，即放到同一個文件夾下，並且在這個文件夾創建一個名字為`__init__.py` 文件，那麼這個文件夾就稱之為包。
+用PYCHARM會比較容易...不會用的可以先跳過 先了解導入模塊
+### 2.1.1 快速體驗
+
+1. 新建包`mypackage`
+2. 新建包內模塊：`my_module1` 和 `my_module2`
+3. 模塊內代碼如下
+
+``` python
+# my_module1
+print(1)
+
+
+def info_print1():
+    print('my_module1')
+```
+
+``` python
+# my_module2
+print(2)
+
+
+def info_print2():
+    print('my_module2')
+```
+
+
+
+## 2.2 導入包
+
+### 2.2.1 方法一
+
+``` python
+import 包名.模塊名
+
+包名.模塊名.目標
+```
+
+#### 2.2.1.1 體驗
+
+``` python
+import my_package.my_module1
+
+my_package.my_module1.info_print1()
+```
+
+### 2.2.2 方法二
+
+注意：必須在`__init__.py`文件中添加`__all__ = []`，控制允許導入的模塊列表。
+
+``` python
+from 包名 import *
+模塊名.目標
+```
+
+#### 2.2.2.1 體驗
+
+``` python
+from my_package import *
+
+my_module1.info_print1()
+```
+
+
+
+# 三. 總結
+
+- 導入模塊方法
+
+``` python
+import 模塊名
+
+from 模塊名 import 目標
+
+from 模塊名 import *
+```
+
+- 導入包
+
+``` python
+import 包名.模塊名
+
+from 包名 import *
+```
+
+- `__all__ = []` ：允許導入的模塊或功能列表 
