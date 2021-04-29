@@ -1,0 +1,250 @@
+
+# 課程：字典
+
+# 目標
+
+- 字典的應用場景
+- 創建字典的語法
+- 字典常見操作
+- 字典的循環遍歷
+
+# 一. 字典的應用場景
+
+思考1： 如果有多個數據，例如：'edge', '男', 20，如何快速存儲？
+
+答：列表
+
+``` python
+list1 = ['edge', '男', 20]
+```
+
+思考2：如何查找到數據'edge'？
+
+答：查找到索引為0的數據即可。
+
+``` python
+list1[0]
+```
+
+思考3：如果將來數據順序發生變化，如下所示，還能用`list1[0]`訪問到數據'edge'嗎？ 。
+
+``` python
+list1 = ['男', 20, 'edge']
+```
+
+答：不能，數據'edge'此時索引為2。
+
+思考4：數據順序發生變化，每個數據的索引也會隨之變化，如何保證數據順序變化前後能使用同一的標準查找數據呢？
+
+答：字典，字典裡面的數據是以==鍵值對==形式出現，字典數據和數據順序沒有關係，即字典不支持索引，後期無論數據如何變化，只需要按照對應的鍵的名字查找數據即可。
+
+
+
+# 二. 創建字典的語法
+
+字典特點：
+
+- 符號為==大括號==
+- 數據為==鍵值對==形式出現
+- 各個鍵值對之間用==逗號==隔開
+
+``` python
+# 有數據字典
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+
+# 空字典
+dict2 = {}
+
+dict3 = dict()
+```
+
+> 注意：一般稱冒號前面的為鍵(key)，簡稱k；冒號後面的為值(value)，簡稱v。
+
+# 三. 字典常見操作
+
+## 3.1 增
+
+寫法：==字典序列[key] = 值==
+
+> 注意：如果key存在則修改這個key對應的值；如果key不存在則新增此鍵值對。
+
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+
+dict1['name'] = 'MAY'
+# 結果：{'name': 'MAY', 'age': 20, 'gender': '男'}
+print(dict1)
+
+dict1['id'] = 110
+
+# {'name': 'MAY', 'age': 20, 'gender': '男', 'id': 110}
+print(dict1)
+```
+
+> 注意：字典為可變類型。***************
+
+
+
+## 3.2 刪
+
+- del() / del：刪除字典或刪除字典中指定鍵值對。
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+
+del dict1['gender']
+# 結果：{'name': 'edge', 'age': 20}
+print(dict1)
+```
+
+
+
+- clear()：清空字典
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+
+dict1.clear()
+print(dict1) # {}
+```
+
+
+
+## 3.3 改
+
+寫法：==字典序列[key] = 值==
+
+> 注意：如果key存在則修改這個key對應的值 ；如果key不存在則新增此鍵值對。
+
+## 3.4 查
+
+### 3.4.1 key值查找
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+print(dict1['name']) # edge
+print(dict1['id']) # 報錯
+```
+
+> 如果當前查找的key存在，則返回對應的值；否則則報錯。
+
+
+
+### 3.4.2 get()
+
+- 語法
+
+``` python
+字典序列.get(key, 默認值)
+```
+
+> 注意：如果當前查找的key不存在則返回第二個參數(默認值)，如果省略第二個參數，則返回None。
+
+- 快速體驗
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+print(dict1.get('name')) # edge
+print(dict1.get('id', 110)) # 110
+print(dict1.get('id')) # None
+```
+
+### 3.4.3 keys()
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+print(dict1.keys()) # dict_keys(['name', 'age', 'gender'])
+```
+
+
+
+### 3.4.4 values()
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+print(dict1.values()) # dict_values(['edge', 20, '男'])
+```
+
+
+
+### 3.4.5 items()
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+print(dict1.items()) # dict_items([('name', 'edge'), ('age', 20), ('gender', '男')])
+```
+
+
+
+# 四. 字典的循環遍歷
+
+## 4.1 遍歷字典的key
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+for key in dict1.keys():
+    print(key)
+```
+
+
+
+
+## 4.2 遍歷字典的value
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+for value in dict1.values():
+    print(value)
+```
+
+
+
+
+
+## 4.3 遍歷字典的元素
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+for item in dict1.items():
+    print(item)
+```
+
+
+
+
+## 4.4 遍歷字典的鍵值對
+
+``` python
+dict1 = {'name': 'edge', 'age': 20, 'gender': '男'}
+for key, value in dict1.items():
+    print(f'{key} = {value}')
+```
+
+
+
+
+# 五. 總結
+
+- 定義字典
+
+``` python
+dict1 = {'name': 'Python', 'age': 30}
+
+dict2 = {}  #空字典
+
+dict3 = dict()
+```
+
+- 常見操作
+  - 增/改
+
+``` python
+字典序列[key] = 值
+```
+
+- 查找
+  - 字典序列[key]
+  - keys()
+  - values()
+  - items() 
