@@ -1,0 +1,145 @@
+# 課程：集合
+
+# 目標
+
+- 創建集合
+- 集合數據的特點
+- 集合的常見操作
+
+
+
+# 一. 創建集合
+
+創建集合使用`{}`或`set()`， 但是如果要創建空集合只能使用`set()`，因為`{}`用來創建空字典。
+
+``` python
+bb = {10, 20, 30, 40, 50}
+print(bb)
+
+bb1 = {10, 30, 20, 10, 30, 40, 30, 50}
+print(bb1)
+
+bb2 = set('abcdefg')
+print(bb2)
+
+bb3 = set()
+print(type(bb3)) # set
+
+s5 = {}
+print(type(s5)) # dict
+```
+
+
+
+> 特點：
+>
+> 1. 集合可以去掉重複數據；
+> 2. 集合數據是無序的，故不支持下標
+
+
+
+# 二. 集合常見操作方法
+
+## 2.1 增加數據
+
+- add()
+
+``` python
+bb = {10, 20}
+bb.add(100)
+bb.add(10)
+print(bb) # {100, 10, 20}
+```
+
+> 因為集合有去重功能，所以，當向集合內追加的數據是當前集合已有數據的話，則不進行任何操作。
+
+- update(), 追加的數據是序列。
+
+``` python
+bb = {10, 20}
+# bb.update(100) # 報錯
+bb.update([100, 200])
+bb.update('abc')
+print(bb)
+```
+
+
+## 2.2 刪除數據
+
+- remove()，刪除集合中的指定數據，如果數據不存在則報錯。
+
+``` python
+bb = {10, 20}
+
+bb.remove(10)
+print(bb)
+
+bb.remove(10) # 報錯
+print(bb)
+```
+
+
+
+- discard()，刪除集合中的指定數據，如果數據不存在也不會報錯。
+
+``` python
+bb = {10, 20}
+
+bb.discard(10)
+print(bb)
+
+bb.discard(10)
+print(bb)
+```
+
+
+
+- pop()，隨機刪除集合中的某個數據，並返回這個數據。
+
+``` python
+bb = {10, 20, 30, 40, 50}
+
+del_num = bb.pop()
+print(del_num)
+print(bb)
+```
+
+
+
+## 2.3 查找數據
+
+- in：判斷數據在集合序列
+- not in：判斷數據不在集合序列
+
+``` python
+bb = {10, 20, 30, 40, 50}
+
+print(10 in bb)
+print(10 not in bb)
+```
+
+
+
+# 三. 總結
+
+- 創建集合
+
+  - 有數據集合
+
+  ``` python
+  bb = {數據1, 數據2, ...}
+  ```
+
+  - 無數據集合
+
+  ``` python
+  bb = set()
+  ```
+
+- 常見操作
+  - 增加數據
+    - add()
+    - update()
+  - 刪除數據
+    - remove()
+    - discard()
