@@ -1,0 +1,256 @@
+# 課程：公共操作
+
+# 目標
+
+- 運算符
+- 公共方法
+- 容器類型轉換
+
+
+
+# 一. 運算符
+
+| 運算符 | 描述 | 支持的容器類型 |
+| :----: | :------------: | :----------------------: |
+| + | 合併 | 字符串、列表、元組 |
+| * | 複製 | 字符串、列表、元組 |
+| in | 元素是否存在 | 字符串、列表、元組、字典 |
+| not in | 元素是否不存在 | 字符串、列表、元組、字典 |
+
+## 1.1 +
+
+``` python
+# 1. 字符串
+str1 = 'aaa'
+str2 = 'bbb'
+str3 = str1 + str2
+print(str3) # aaabbb
+
+
+# 2. 列表
+list1 = [1, 2]
+list2 = [10, 20]
+list3 = list1 + list2
+print(list3) # [1, 2, 10, 20]
+
+# 3. 元組
+t1 = (1, 2)
+t2 = (10, 20)
+t3 = t1 + t2
+print(t3) # (10, 20, 100, 200)
+```
+
+## 1.2 *
+
+``` python
+# 1. 字符串
+print('-' * 10) # ----------
+
+# 2. 列表
+list1 = ['hello']
+print(list1 * 3) # ['hello', 'hello', 'hello']
+
+# 3. 元組
+t1 = ('world',)
+print(t1 * 5) # ('world', 'world', 'world', 'world', 'world')
+```
+
+## 1.3 in或not in
+
+``` python
+# 1. 字符串
+print('a' in 'abcdef') # True
+print('a' not in 'abcdrf') # False
+
+# 2. 列表
+list1 = ['a', 'b', 'c', 'd']
+print('a' in list1) # True
+print('a' not in list1) # False
+
+# 3. 元組
+t1 = ('a', 'b', 'c', 'd')
+print('aa' in t1) # False
+print('aa' not in t1) # True
+```
+
+
+
+# 二. 公共方法
+
+| 函數 | 描述 |
+| ----------------------- | ------------------------- ----------------------------------- |
+| len() | 計算容器中元素個數 |
+| del 或 del() | 刪除 |
+| max() | 返回容器中元素最大值 |
+| min() | 返回容器中元素最小值 |
+| range(start, end, step) | 生成從start到end的數字，步長為 step，供for循環使用 |
+| enumerate() | 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在 for 循環當中。 |
+
+## 2.1 len()
+
+``` python
+# 1. 字符串
+str1 = 'abcdefg'
+print(len(str1)) # 7
+
+# 2. 列表
+list1 = [10, 20, 30, 40]
+print(len(list1)) # 4
+
+# 3. 元組
+t1 = (10, 20, 30, 40, 50)
+print(len(t1)) # 5
+
+# 4. 集合
+s1 = {10, 20, 30}
+print(len(s1)) # 3
+
+# 5. 字典
+dict1 = {'name': 'Rose', 'age': 18}
+print(len(dict1)) # 2
+```
+
+## 2.2 del()
+
+``` python
+# 1. 字符串
+str1 = 'abcdefg'
+del str1
+print(str1)
+
+# 2. 列表
+list1 = [10, 20, 30, 40]
+del(list1[0])
+print(list1) # [20, 30, 40]
+```
+
+## 2.3 max()
+
+``` python
+# 1. 字符串
+str1 = 'abcdefg'
+print(max(str1)) # g
+
+# 2. 列表
+list1 = [10, 20, 30, 40]
+print(max(list1)) # 40
+```
+
+## 2.4 min()
+
+``` python
+# 1. 字符串
+str1 = 'abcdefg'
+print(min(str1)) # a
+
+# 2. 列表
+list1 = [10, 20, 30, 40]
+print(min(list1)) # 10
+```
+
+## 2.5 range()
+
+``` python
+# 1 2 3 4 5 6 7 8 9
+for i in range(1, 10, 1):
+    print(i)
+
+# 1 3 5 7 9
+for i in range(1, 10, 2):
+    print(i)
+
+# 0 1 2 3 4 5 6 7 8 9
+for i in range(10):
+    print(i)
+```
+
+> 注意：range()生成的序列不包含end數字。
+
+## 2.6 enumerate()*************
+
+- 語法
+
+``` python
+enumerate(可遍歷對象, start=0)
+```
+
+> 注意：start參數用來設置遍歷數據的下標的起始值，默認為0。
+
+- 快速體驗
+
+``` python
+list1 = ['a', 'b', 'c', 'd', 'e']
+
+for i in enumerate(list1):
+    print(i)
+
+for index, char in enumerate(list1, start=1):
+    print(f'下標是{index}, 對應的字符是{char}')
+```
+
+
+
+
+# 三. 容器類型轉換
+
+## 3.1 tuple()
+
+作用：將某個序列轉換成元組
+
+``` python
+list1 = [10, 20, 30, 40, 50, 20]
+s1 = {100, 200, 300, 400, 500}
+
+print(tuple(list1))
+print(tuple(s1))
+```
+
+
+
+## 3.2 list()
+
+作用：將某個序列轉換成列表
+
+``` python
+tt1 = ('a', 'b', 'c', 'd', 'e')
+ss1 = {100, 200, 300, 400, 500}
+
+print(list(tt1))
+print(list(ss1))
+```
+
+
+
+## 3.3 set()
+
+作用：將某個序列轉換成集合
+
+``` python
+list1 = [10, 20, 30, 40, 50, 20]
+t1 = ('a', 'b', 'c', 'd', 'e')
+
+print(set(list1))
+print(set(t1))
+```
+
+> 注意：
+
+ 1. 集合可以快速完成列表去重複
+ 2. 集合不支持下標
+
+
+
+# 四. 總結
+
+- 運算符
+  - +
+  - in / not in
+- 公共方法
+  - len()
+  - del()
+  - range()
+  - enumerate()
+- 數據類型轉換
+  - tuple()
+  - list()
+  - set() 
