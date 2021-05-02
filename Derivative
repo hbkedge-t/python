@@ -1,0 +1,168 @@
+# 課程：推導式
+
+# 目標
+
+- 列表推導式
+- 字典推導式
+- 集合推導式
+
+# 一. 列表推導式
+
+作用：用一個表達式創建一個有規律的列表或控制一個有規律列表。
+
+列表推導式又叫列表生成式。
+
+## 1.1 快速體驗
+
+需求：創建一個0-100的列表。
+
+- while循環實現
+
+``` python
+# 1. 準備一個空列表
+list1 = []
+
+# 2. 書寫循環，依次追加數字到空列表list1中
+i = 0
+while i < 100:
+    list1.append(i)
+    i += 1
+
+print(list1)
+```
+
+- for循環實現
+
+``` python
+list1 = []
+for i in range(100):
+    list1.append(i)
+
+print(list1)
+```
+
+- 列表推導式實現----是不是很帥?
+
+``` python
+list1 = [i for i in range(100)]
+print(list1)
+```
+
+## 1.2 帶if的列表推導式
+
+需求：創建0-10的偶數列表
+
+- 方法一：range()步長實現
+
+``` python
+list1 = [i for i in range(0, 10, 2)]
+print(list1)
+```
+
+- 方法二：if實現
+
+``` python
+list1 = [i for i in range(10) if i % 2 == 0]
+print(list1)
+```
+
+## 1.3 多個for循環實現列表推導式
+
+需求：創建列表如下：
+
+``` html
+[(1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2)]
+```
+
+- 代碼如下：
+
+``` python
+list1 = [(i, j) for i in range(1, 3) for j in range(3)]
+print(list1)
+```
+
+
+
+# 二. 字典推導式
+
+思考：如果有如下兩個列表：
+
+``` python
+list1 = ['name', 'age', 'gender']
+list2 = ['Tom', 20, 'man']
+```
+
+如何快速合併為一個字典？
+
+答：字典推導式
+
+字典推導式作用：快速合併列表為字典或提取字典中目標數據。
+
+# 2.1 快速體驗
+
+1. 創建一個字典：字典key是1-5數字，value是這個數字的2平方。
+
+``` python
+dict1 = {i: i**2 for i in range(1, 5)}
+print(dict1) # {1: 1, 2: 4, 3: 9, 4: 16}
+```
+
+
+
+2. 將兩個列表合併為一個字典
+
+``` python
+list1 = ['name', 'age', 'gender']
+list2 = ['john', 20, 'men']
+
+dict1 = {list1[i]: list2[i] for i in range(len(list1))}
+print(dict1)
+```
+
+3. 提取字典中目標數據
+
+``` python
+counts = {'ASUS': 368, 'HP': 125, 'DELL': 205, 'Lenovo': 199, 'acer': 99}
+
+# 需求：提取上述電腦數量大於等於200的字典數據
+count1 = {key: value for key, value in counts.items() if value >= 200}
+print(count1) # {'ASUS': 368, 'DELL': 205}
+```
+
+
+
+# 三. 集合推導式
+
+需求：創建一個集合，數據為下方列表的2平方。
+
+``` python
+list1 = [1, 1, 2]
+```
+
+代碼如下：
+
+``` python
+list1 = [1, 1, 2]
+set1 = {i ** 2 for i in list1}
+print(set1) # {1, 4}
+```
+
+> 注意：集合有數據去重功能。
+
+
+
+# 四. 總結
+
+- 推導式的作用：簡化代碼
+- 推導式寫法
+
+``` python
+# 列表推導式
+[xx for xx in range()]
+
+# 字典推導式
+{xx1: xx2 for ... in ...}
+
+# 集合推導式
+{xx for xx in ...}
+``` 
