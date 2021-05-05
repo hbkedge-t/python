@@ -1,0 +1,348 @@
+
+# 遞歸函數
+
+## 遞歸的應用場景
+
+遞歸是一種編程思想，應用場景：
+
+1. 在我們日常開發中，如果要遍歷一個文件夾下面所有的文件，通常會使用遞歸來實現；
+2. 在後續的算法課程中，很多算法都離不開遞歸，例如：快速排序。
+
+###  遞歸的特點
+
+- 函數內部自己調用自己
+- 必須有出口
+
+
+
+##  應用：3以內數字累加和
+
+- 代碼
+
+```python
+# 3 + 2 + 1
+def sum_numbers(num):
+    # 1.如果是1，直接返回1 -- 出口
+    if num == 1:
+        return 1
+    # 2.如果不是1，重複執行累加並返回結果
+    return num + sum_numbers(num-1)
+
+
+sum_result = sum_numbers(3)
+# 輸出結果為6
+print(sum_result)
+```
+
+
+# lambda 表達式***重要***
+
+##lambda的應用場景
+
+如果一個函數有一個返回值，並且只有一句代碼，可以使用 lambda簡化。
+
+
+
+##  lambda語法
+
+```python
+lambda 參數列表 ： 表達式
+```
+
+> 注意
+
+- lambda表達式的參數可有可無，函數的參數在lambda表達式中完全適用。
+- lambda表達式能接收任何數量的參數但只能返回一個表達式的值。
+
+### 快速入門
+
+```python
+# 函數
+def fn1():
+    return 200
+
+
+print(fn1)
+print(fn1())
+
+
+# lambda表達式
+fn2 = lambda: 100
+print(fn2)
+print(fn2())
+```
+
+> 注意：直接打印lambda表達式，輸出的是此lambda的內存地址
+
+
+
+## 示例：計算a + b
+
+###  函數實現
+
+```python
+def add(a, b):
+    return a + b
+
+
+result = add(1, 2)
+print(result)
+```
+
+> 思考：需求簡單，是否代碼太多？
+
+###  lambda實現
+
+```python
+fn1 = lambda a, b: a + b
+print(fn1(1, 2))
+```
+
+
+
+##  lambda的參數形式
+
+### 無參數
+
+```python
+fn1 = lambda: 100
+print(fn1())
+```
+
+### 一個參數
+
+```python
+fn1 = lambda a: a
+print(fn1('hello world'))
+```
+
+### 默認參數
+
+```python
+fn1 = lambda a, b, c=100: a + b + c
+print(fn1(10, 20))
+```
+
+### 可變參數：*args
+
+```python
+fn1 = lambda *args: args
+print(fn1(10, 20, 30))
+```
+
+> 注意：這裡的可變參數傳入到lambda之後，返回值為元組。
+
+### 可變參數：**kwargs
+
+```python
+fn1 = lambda **kwargs: kwargs
+print(fn1(name='python', age=20))
+```
+
+
+
+## lambda的應用
+
+###  帶判斷的lambda
+
+```python
+fn1 = lambda a, b: a if a > b else b
+print(fn1(1000, 500))
+```
+
+### 列表數據按字典key的值排序
+
+```python
+students = [
+    {'name': 'TOM', 'age': 20},
+    {'name': 'ROSE', 'age': 19},
+    {'name': 'Jack', 'age': 22}
+]
+
+# 按name值升序排列
+students.sort(key=lambda x: x['name'])
+print(students)
+
+# 按name值降序排列
+students.sort(key=lambda x: x['name'], reverse=True)
+print(students)
+
+# 按age值升序排列
+students.sort(key=lambda x: x['age'])
+print(students)
+```
+
+
+
+#  高階函數
+
+==把函數作為參數傳入==，這樣的函數稱為高階函數，高階函數是函數式編程的體現。函數式編程就是指這種高度抽象的編程範式。
+
+##  體驗高階函數
+
+在Python中，`abs()`函數可以完成對數字求絕對值計算。
+
+``` python
+abs(-10) # 10
+```
+
+`round()`函數可以完成對數字的四捨五入計算。
+
+``` python
+round(1.2) # 1
+round(1.9) # 2
+```
+
+需求：任意兩個數字，按照指定要求整理數字後再進行求和計算。
+
+- 方法1
+
+``` python
+def add_num(a, b):
+    return abs(a) + abs(b)
+
+
+result = add_num(-1, 2)
+print(result) # 3
+```
+
+- 方法2
+
+``` python
+def sum_num(a, b, f):
+    return f(a) + f(b)
+
+
+result = sum_num(-1, 2, abs)
+print(result) # 3
+```
+
+> 注意：兩種方法對比之後，發現，方法2的代碼會更加簡潔，函數靈活性更高。
+
+函數式編程大量使用函數，減少了代碼的重複，因此程序比較短，開發速度較快。
+
+
+
+##  內置高階函數
+
+###  map()
+
+map(func, lst)，將傳入的函數變量func作用到lst變量的每個元素中，並將結果組成新的列表(Python2)/迭代器(Python3)返回。
+
+需求：計算`list1`序列中各個數字的2次方。
+
+``` python
+list1 = [1, 2, 3, 4, 5]
+
+
+def func(x):
+    return x ** 2
+
+
+result = map(func, list1)
+
+print(result) # <map object at 0x0000013769653198>
+print(list(result)) # [1, 4, 9, 16, 25]
+```
+
+
+
+###  reduce()
+
+reduce(func，lst)，其中func必須有兩個參數。每次func計算的結果繼續和序列的下一個元素做累積計算。
+
+> 注意：reduce()傳入的參數func必須接收2個參數。
+
+需求：計算`list1`序列中各個數字的累加和。
+
+``` python
+import functools
+
+list1 = [1, 2, 3, 4, 5]
+
+
+def func(a, b):
+    return a + b
+
+
+result = functools.reduce(func, list1)
+
+print(result) # 15
+```
+
+
+
+### filter()
+
+filter(func, lst)函數用於過濾序列, 過濾掉不符合條件的元素, 返回一個 filter 對象。如果要轉換為列表, 可以使用 list() 來轉換。
+
+``` python
+list1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+def func(x):
+    return x % 2 == 0
+
+
+result = filter(func, list1)
+
+print(result) # <filter object at 0x0000017AF9DC3198>
+print(list(result)) # [2, 4, 6, 8, 10]
+```
+
+
+
+#  總結
+
+- 遞歸
+
+  - 函數內部自己調用自己
+  - 必須有出口
+
+- lambda
+
+  - 語法
+
+  ``` python
+  lambda 參數列表: 表達式
+  ```
+
+  - lambda的參數形式
+
+    - 無參數
+
+    ``` python
+    lambda: 表達式
+    ```
+
+    - 一個參數
+
+    ``` python
+    lambda 參數: 表達式
+    ```
+
+    - 默認參數
+
+    ``` python
+    lambda key=value: 表達式
+    ```
+
+    - 不定長位置參數
+
+    ``` python
+    lambda *args: 表達式
+    ```
+
+    - 不定長關鍵字參數
+
+    ``` python
+    lambda **kwargs: 表達式
+    ```
+
+- 高階函數
+
+  - 作用：把函數作為參數傳入，化簡代碼
+  - 內置高階函數
+    - map()
+    - reduce()
+    - filter()
