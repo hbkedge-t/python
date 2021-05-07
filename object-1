@@ -1,0 +1,703 @@
+物件導向基礎
+
+# 目標
+
+- 理解物件導向
+- 類和對象
+- 添加和獲取對象屬性
+- 魔法方法
+
+
+
+# 一. 理解物件導向
+
+物件對像是一種抽象化的編程思想，很多編程語言中都有的一種思想。
+
+例如：洗衣服
+
+思考：幾種途徑可以完成洗衣服？
+
+答： 手洗 和 機洗。
+
+手洗：找盆 - 放水 - 加洗衣粉 - 浸泡 - 搓洗 - 擰乾水 - 倒水 - 漂洗N次 - 擰乾 - 晾曬。
+
+機洗：打開洗衣機 - 放衣服 - 加洗衣粉 - 按下開始按鈕 - 晾曬。
+
+思考：對比兩種洗衣服途徑，同學們發現了什麼？
+
+答：機器洗更簡單
+
+思考：機器洗，只需要找到一台洗衣機，加入簡單操作就可以完成洗衣服的工作，而不需要關心洗衣機內部發生了什麼事情。
+
+> 總結：==物件導向就是將編程當成是一個事物，對外界來說，事物是直接使用的，不用去管他內部的情況。而編程就是設置事物能夠做什麼事。 ==
+
+
+
+# 二. 類和對象
+
+思考：洗衣機洗衣服描述過程中，洗衣機其實就是一個事物，即對象，洗衣機對象哪來的呢？
+
+答：洗衣機是由工廠工人製作出來。
+
+思考：工廠工人怎麼製作出的洗衣機？
+
+答：工人根據設計師設計的功能圖紙製作洗衣機。
+
+總結：圖紙 → 洗衣機 → 洗衣服。
+
+在物件導向編程過程中，有兩個重要組成部分：==類== 和 ==對象==。
+
+==類和對象的關係：用類去創建一個對象。 ==
+
+## 2.1 理解類和對象
+
+### 2.1.1 類
+
+類是對一系列具有相同==特徵==和==行為==的事物的統稱，是一個==抽象的概念==，不是真實存在的事物。
+
+- 特徵即是屬性
+- 行為即是方法
+
+類比如是製造洗衣機時要用到的圖紙，也就是說==類是用來創建對象==。
+
+
+
+
+### 2.1.2 對象
+
+對像是類創建出來的真實存在的事物，例如：洗衣機。
+
+> 注意：開發中，先有類，再有對象。
+
+
+
+
+
+## 2.2 物件導向實現方法
+
+### 2.2.1 定義類
+
+Python2中類分為：經典類 和 新式類
+
+- 語法
+
+```python
+class 類名():
+    代碼
+    ......
+```
+
+> 注意：類名要滿足標識符命名規則，同時遵循==大駝峰命名習慣==。
+
+- 體驗
+
+``` python
+class Washer():
+    def wash(self):
+        print('我會洗衣服')
+```
+
+- 拓展：經典類
+
+不由任意內置類型派生出的類，稱之為經典類
+
+``` python
+class 類名:
+    代碼
+    ......
+```
+
+
+
+
+
+### 2.2.2 創建對象
+
+對象又名實例。
+
+- 語法
+
+``` python
+對象名 = 類名()
+```
+
+- 體驗
+
+``` python
+# 創建對象
+haier1 = Washer()
+
+# <__main__.Washer object at 0x0000018B7B224240>
+print(haier1)
+
+# haier對象調用實例方法
+haier1.wash()
+```
+
+> 注意：創建對象的過程也叫實例化對象。
+
+### 2.2.3 self
+
+self指的是調用該函數的對象。
+
+``` python
+# 1. 定義類
+class Washer():
+    def wash(self):
+        print('我會洗衣服')
+        # <__main__.Washer object at 0x0000024BA2B34240>
+        print(self)
+
+
+# 2. 創建對象
+haier1 = Washer()
+# <__main__.Washer object at 0x0000018B7B224240>
+print(haier1)
+# haier1對象調用實例方法
+haier1.wash()
+
+
+haier2 = Washer()
+# <__main__.Washer object at 0x0000022005857EF0>
+print(haier2)
+```
+
+> 注意：打印對象和self得到的結果是一致的，都是當前對象的內存中存儲地址。
+
+
+
+# 三. 添加和獲取對象屬性
+
+屬性即是特徵，比如：洗衣機的寬度、高度、重量...
+
+對象屬性既可以在類外面添加和獲取，也能在類裡面添加和獲取。
+
+## 3.1 類外面添加對象屬性
+
+- 語法
+
+``` python
+對象名.屬性名 = 值
+```
+
+- 體驗
+
+``` python
+haier1.width = 500
+haier1.height = 800
+```
+
+
+
+## 3.2 類外面獲取對象屬性
+
+- 語法
+
+``` python
+對象名.屬性名
+```
+
+- 體驗
+
+``` python
+print(f'haier1洗衣機的寬度是{haier1.width}')
+print(f'haier1洗衣機的高度是{haier1.height}')
+```
+
+
+
+## 3.3 類裡面獲取對象屬性
+
+- 語法
+
+``` python
+self.屬性名
+```
+
+- 體驗
+
+``` python
+# 定義類
+class Washer():
+    def print_info(self):
+        # 類裡面獲取實例屬性
+        print(f'haier1洗衣機的寬度是{self.width}')
+        print(f'haier1洗衣機的高度是{self.height}')
+
+# 創建對象
+haier1 = Washer()
+
+# 添加實例屬性
+haier1.width = 500
+haier1.height = 800
+
+haier1.print_info()
+```
+
+
+
+# 四. 魔法方法***重點***
+
+在Python中，`__xx__()`的函數叫做魔法方法，指的是具有特殊功能的函數。
+
+## 4.1 `__init__()`
+
+### 4.1.1 體驗`__init__()`
+
+思考：洗衣機的寬度高度是與生俱來的屬性，可不可以在生產過程中就賦予這些屬性呢？
+
+答：理應如此。
+
+==`__init__()`方法的作用：初始化對象。 ==
+
+``` python
+class Washer():
+    
+    # 定義初始化功能的函數
+    def __init__(self):
+        # 添加實例屬性
+        self.width = 500
+        self.height = 800
+
+
+    def print_info(self):
+        # 類裡面調用實例屬性
+        print(f'洗衣機的寬度是{self.width}, 高度是{self.height}')
+
+
+haier1 = Washer()
+haier1.print_info()
+```
+
+> 注意：
+>
+> - `__init__()`方法，在創建一個對象時默認被調用，不需要手動調用
+> - `__init__(self)`中的self參數，不需要開發者傳遞，python解釋器會自動把當前的對象引用傳遞過去。
+
+
+
+### 4.1.2 帶參數的`__init__()`
+
+思考：一個類可以創建多個對象，如何對不同的對象設置不同的初始化屬性呢？
+
+答：傳參數。
+
+``` python
+class Washer():
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def print_info(self):
+        print(f'洗衣機的寬度是{self.width}')
+        print(f'洗衣機的高度是{self.height}')
+
+
+haier1 = Washer(10, 20)
+haier1.print_info()
+
+
+haier2 = Washer(30, 40)
+haier2.print_info()
+```
+
+
+
+## 4.2 `__str__()`
+
+當使用print輸出對象的時候，默認打印對象的內存地址。如果類定義了`__str__`方法，那麼就會打印從在這個方法中 return 的數據。
+
+``` python
+class Washer():
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def __str__(self):
+        return '這是海爾洗衣機的說明書'
+
+
+haier1 = Washer(10, 20)
+# 這是龍家洗衣機的說明書
+print(haier1)
+```
+
+
+
+## 4.3 `__del__()`
+
+當刪除對象時，python解釋器也會默認調用`__del__()`方法。
+
+``` python
+class Washer():
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def __del__(self):
+        print(f'{self}對像已經被刪除')
+
+
+haier1 = Washer(10, 20)
+
+# <__main__.Washer object at 0x0000026118223278>對像已經被刪除
+del haier1
+```
+
+
+
+# 五. 綜合應用
+
+## 5.1 烤番薯
+
+### 5.1.1 需求
+
+需求主線：
+
+ 1. 被烤的時間和對應的番薯狀態：
+
+    0-3分鐘：生的
+
+    3-5分鐘：半生不熟
+
+    5-8分鐘：熟的
+
+    超過8分鐘：烤糊了
+
+    
+
+ 2. 添加的調料：
+
+    用戶可以按自己的意願添加調料
+
+    
+
+### 5.1.2 步驟分析
+
+需求涉及一個事物： 番薯，故案例涉及一個類：番薯類。
+
+#### 5.1.2.1 定義類
+
+- 番薯的屬性
+  - 被烤的時間
+  - 番薯的狀態
+  - 添加的調料
+- 番薯的方法
+  - 被烤
+    - 用戶根據意願設定每次烤番薯的時間
+    - 判斷番薯被烤的總時間是在哪個區間，修改番薯狀態
+  - 添加調料
+    - 用戶根據意願設定添加的調料
+    - 將用戶添加的調料存儲
+
+- 顯示對象信息
+
+
+
+#### 5.1.2.2 創建對象，調用相關實例方法
+
+
+
+### 5.1.3 代碼實現
+
+#### 5.1.3.1 定義類
+
+- 番薯屬性
+  - 定義番薯初始化屬性，後期根據程序推進更新實例屬性
+
+``` python
+class SweetPotato():
+    def __init__(self):
+        # 被烤的時間
+        self.cook_time = 0
+        # 番薯的狀態
+        self.cook_static = '生的'
+        # 調料列表
+        self.condiments = []
+```
+
+
+
+#### 5.1.3.2 定義烤番薯方法
+
+``` python
+class SweetPotato():
+    ......
+    
+    def cook(self, time):
+        """烤番薯的方法"""
+        self.cook_time += time
+        if 0 <= self.cook_time < 3:
+            self.cook_static = '生的'
+        elif 3 <= self.cook_time < 5:
+            self.cook_static = '半生不熟'
+        elif 5 <= self.cook_time < 8:
+            self.cook_static = '熟了'
+        elif self.cook_time >= 8:
+            self.cook_static = '烤糊了'
+```
+
+
+
+#### 5.1.3.3 書寫str魔法方法，用於輸出對象狀態
+
+``` python
+class SweetPotato():
+......
+
+    def __str__(self):
+        return f'這個番薯烤了{self.cook_time}分鐘, 狀態是{self.cook_static}'
+
+```
+
+
+
+#### 5.1.3.4 創建對象，測試實例屬性和實例方法
+
+``` python
+digua1 = SweetPotato()
+print(digua1)
+digua1.cook(2)
+print(digua1)
+```
+
+
+
+#### 5.1.3.5 定義添加調料方法，並調用該實例方法
+
+``` python
+class SweetPotato():
+......
+
+    def add_condiments(self, condiment):
+        """添加調料"""
+        self.condiments.append(condiment)
+    def __str__(self):
+        return f'這個番薯烤了{self.cook_time}分鐘, 狀態是{self.cook_static}, 添加的調料有{self.condiments}'
+      
+
+digua1 = SweetPotato()
+print(digua1)
+
+digua1.cook(2)
+digua1.add_condiments('醬油')
+print(digua1)
+
+digua1.cook(2)
+digua1.add_condiments('辣椒')
+print(digua1)
+
+digua1.cook(2)
+print(digua1)
+
+digua1.cook(2)
+print(digua1)
+```
+
+
+
+### 5.1.4 代碼總覽
+
+``` python
+# 定義類
+class SweetPotato():
+    def __init__(self):
+        # 被烤的時間
+        self.cook_time = 0
+        # 番薯的狀態
+        self.cook_static = '生的'
+        # 調料列表
+        self.condiments = []
+
+    def cook(self, time):
+        """烤番薯的方法"""
+        self.cook_time += time
+        if 0 <= self.cook_time < 3:
+            self.cook_static = '生的'
+        elif 3 <= self.cook_time < 5:
+            self.cook_static = '半生不熟'
+        elif 5 <= self.cook_time < 8:
+            self.cook_static = '熟了'
+        elif self.cook_time >= 8:
+            self.cook_static = '烤糊了'
+
+    def add_condiments(self, condiment):
+        """添加調料"""
+        self.condiments.append(condiment)
+
+    def __str__(self):
+        return f'這個番薯烤了{self.cook_time}分鐘, 狀態是{self.cook_static}, 添加的調料有{self.condiments}'
+
+
+digua1 = SweetPotato()
+print(digua1)
+
+digua1.cook(2)
+digua1.add_condiments('醬油')
+print(digua1)
+
+digua1.cook(2)
+digua1.add_condiments('辣椒')
+print(digua1)
+
+digua1.cook(2)
+print(digua1)
+
+digua1.cook(2)
+print(digua1)
+```
+
+
+
+## 5.2 搬家具
+
+### 5.2.1 需求
+
+將小於房子剩餘面積的家具擺放到房子中
+
+
+
+### 5.2.2 步驟分析
+
+需求涉及兩個事物：房子 和 家具，故被案例涉及兩個類：房子類 和 家具類。
+
+#### 5.2.2.1 定義類
+
+- 房子類
+  - 實例屬性
+    - 房子地理位置
+    - 房子佔地面積
+    - 房子剩餘面積
+    - 房子內家具列表
+  - 實例方法
+    - 容納家具
+  - 顯示房屋信息
+
+
+
+- 家具類
+  - 家具名稱
+  - 家具佔地面積
+
+#### 5.2.2.2 創建對象並調用相關方法
+
+
+
+### 5.2.3 代碼實現
+
+#### 5.2.3.1 定義類
+
+- 家具類
+
+``` python
+class Furniture():
+    def __init__(self, name, area):
+        # 家具名字
+        self.name = name
+        # 家具佔地面積
+        self.area = area
+```
+
+
+
+- #### 房子類
+
+``` python
+class Home():
+    def __init__(self, address, area):
+        # 地理位置
+        self.address = address
+        # 房屋面積
+        self.area = area
+        # 剩餘面積
+        self.free_area = area
+        # 家具列表
+        self.furniture = []
+
+    def __str__(self):
+        return f'房子坐落於{self.address}, 佔地面積{self.area}, 剩餘面積{self.free_area}, 家具有{self.furniture}'
+
+    def add_furniture(self, item):
+        """容納家具"""
+        if self.free_area >= item.area:
+            self.furniture.append(item.name)
+            # 家具搬入後，房屋剩餘面積 = 之前剩餘面積 - 該家具面積
+            self.free_area -= item.area
+        else:
+            print('家具太大，剩餘面積不足，無法容納')
+```
+
+
+
+#### 5.2.3.2 創建對象並調用實例屬性和方法
+
+``` python
+bed = Furniture('雙人床', 6)
+jia1 = Home('北京', 1200)
+print(jia1)
+
+jia1.add_furniture(bed)
+print(jia1)
+
+sofa = Furniture('沙發', 10)
+jia1.add_furniture(sofa)
+print(jia1)
+
+ball = Furniture('籃球場', 1500)
+jia1.add_furniture(ball)
+print(jia1)
+```
+
+
+
+# 六. 總結
+
+- 物件導向重要組成部分
+
+  - 類
+    - 創建類
+
+  ``` python
+  class 類名():
+    代碼
+  ```
+
+  - 對象
+
+  ``` python
+  對象名 = 類名()
+  ```
+
+- 添加對象屬性
+
+  - 類外面
+
+  ``` python
+  對象名.屬性名 = 值
+  ```
+
+  - 類裡面
+
+  ``` python
+  self.屬性名 = 值
+  ```
+
+- 獲取對象屬性
+
+  - 類外面
+
+  ``` python
+  對象名.屬性名
+  ```
+
+  - 類裡面
+
+  ``` python
+  self.屬性名
+  ```
+
+- 魔法方法
+
+  - `__init__()`: 初始化
+  - `__str__()`:輸出對象信息
+  - `__del__()`:刪除對象時調用
