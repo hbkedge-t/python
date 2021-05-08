@@ -1,0 +1,117 @@
+# 課程：面向對象-繼承-1
+
+# 目標
+
+- 繼承的概念
+- 單繼承
+- 多繼承
+- 子類重寫父類的同名屬性和方法
+- 子類調用父類的同名屬性和方法
+- 多層繼承
+- super()
+- 私有屬性和私有方法
+
+# 一. 繼承的概念
+
+生活中的繼承，一般指的是子女繼承父輩的財產。
+
+
+```python
+class 類名:
+    代碼
+    ......
+`
+
+
+
+Python面向對象的繼承指的是多個類之間的所屬關係，即子類默認繼承父類的所有屬性和方法，具體如下：
+
+``` python
+# 父類A
+class A(object):
+    def __init__(self):
+        self.num = 1
+
+    def info_print(self):
+        print(self.num)
+
+# 子類B
+class B(A):
+    pass
+
+
+result = B()
+result.info_print() # 1
+```
+
+> 在Python中，所有類默認繼承object類，object類是頂級類或基類；其他子類叫做派生類。
+
+
+
+# 二. 單繼承
+
+> 故事主線：一個蛋糕老師傅，在蛋糕界爬滾打多年，研發了一套精湛的攤蛋糕的技術。師父要把這套技術傳授給他的唯一的最得意的徒弟。
+
+分析：徒弟是不是要繼承師父的所有技術？
+
+``` python
+# 1. 師父類
+class Master(object):
+    def __init__(self):
+        self.master = '[古法蛋糕配方]'
+
+    def make_cake(self):
+        print(f'運用{self.master}製作蛋糕')
+
+        
+# 2. 徒弟類
+class Prentice(Master):
+    pass
+
+
+# 3. 創建對象S
+S = Prentice()
+# 4. 對象訪問實例屬性
+print(S.master)
+# 5. 對象調用實例方法
+S.make_cake()
+```
+
+
+
+# 三. 多繼承
+
+> 故事推進：史公子是個愛學習的好孩子，想學習更多的蛋糕技術，於是，在網路搜索到啪啪啪，報班學習蛋糕技術。
+
+所謂多繼承意思就是一個類同時繼承了多個父類。
+
+``` python
+class Master(object):
+    def __init__(self):
+        self.master = '[古法蛋糕配方]'
+
+    def make_cake(self):
+        print(f'運用{self.master}製作蛋糕')
+
+
+# 創建學校類
+class School(object):
+    def __init__(self):
+        self.master = '[啪啪啪蛋糕配方]'
+
+    def make_cake(self):
+        print(f'運用{self.master}製作蛋糕')
+
+
+class Prentice(School, Master):
+    pass
+
+
+S = Prentice()
+print(S.master)
+S.make_cake()
+```
+
+> 注意：當一個類有多個父類的時候，默認使用第一個父類的同名屬性和方法。
+
+續....
